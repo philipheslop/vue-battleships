@@ -2,9 +2,9 @@
   <div style="width: 100%">
     <div class="content">
       <table border="1" cellspacing="0" style="width: 100%">
-        <tr v-for="(row, index) in tableData" :key="index">
+        <tr v-for="(row, index) in tableData" :key="index + 'row'">
           <td v-for="element in row" :key="element">
-            {{ element }}
+            <GridItem :msg="element" />
           </td>
         </tr>
       </table>
@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import GridItem from './GridItem.vue'
 const rows = 10
 const cols = 10
 const tableData: string[] = []
