@@ -1,9 +1,5 @@
 <template>
-  <div
-    @click="clicked = !clicked"
-    :class="{ grey: !clicked, red: clicked }"
-    style="width: 100%; height: 25px; width: 25px"
-  >
+  <div @click="clicked = !clicked" :class="{ sea: !clicked, red: clicked }" class="item">
     {{ msg }}
   </div>
 </template>
@@ -17,8 +13,8 @@ const clicked = ref(false)
 </script>
 
 <style scoped>
-.grey {
-  background-color: grey;
+.sea {
+  background-color: lightblue;
 }
 
 .red {
@@ -28,5 +24,17 @@ const clicked = ref(false)
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+
+.item {
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.item:hover {
+  background-color: yellow;
+  font-size: 18px;
 }
 </style>

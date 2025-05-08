@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import MainTitle from './components/MainTitle.vue'
 import MainGrid from './components/MainGrid.vue'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
+    *<img
+      alt="Ship logo"
+      class="logo"
+      src="@/assets/ship-svgrepo-com.svg"
+      width="125"
+      height="125"
+    />
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <MainTitle title="BATTLESHIPS!" />
       <MainGrid />
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -19,6 +24,13 @@ import MainGrid from './components/MainGrid.vue'
   </header>
 
   <RouterView />
+
+  <p>
+    *ship svg obtained from
+    <a href="https://www.svgrepo.com/svg/493749/ship" target="_blank" rel="noopener"
+      >https://www.svgrepo.com/svg/493749/ship</a
+    >
+  </p>
 </template>
 
 <style scoped>
