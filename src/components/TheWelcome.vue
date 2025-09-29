@@ -6,11 +6,19 @@ import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
 
+withDefaults(defineProps<{
+  showBoilerplate?: boolean
+}>(), {
+  showBoilerplate: false
+})
+
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </script>
 
 <template>
-  <WelcomeItem>
+  <div>
+    <div v-if="showBoilerplate">
+      <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
     </template>
@@ -90,5 +98,8 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     As an independent project, Vue relies on community backing for its sustainability. You can help
     us by
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
-  </WelcomeItem>
+      </WelcomeItem>
+    </div>
+  </div>
 </template>
+

@@ -2,35 +2,34 @@
 import { RouterLink, RouterView } from 'vue-router'
 import MainTitle from './components/MainTitle.vue'
 import MainGrid from './components/MainGrid.vue'
+import { Ship } from 'lucide-vue-next'
 </script>
 
 <template>
   <header>
-    *<img
-      alt="Ship logo"
+    <Ship
       class="logo"
-      src="@/assets/ship-svgrepo-com.svg"
-      width="125"
-      height="125"
+      :size="125"
+      :stroke-width="1.5"
     />
     <div class="wrapper">
       <MainTitle title="BATTLESHIPS!" />
       <MainGrid />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
     </div>
   </header>
 
   <RouterView />
 
-  <p>
-    *ship svg obtained from
-    <a href="https://www.svgrepo.com/svg/493749/ship" target="_blank" rel="noopener"
-      >https://www.svgrepo.com/svg/493749/ship</a
-    >
-  </p>
+  <footer class="bottom-nav">
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/vue-info">Vue Info</RouterLink>
+    </nav>
+    <p class="attribution">
+      Icons by <a href="https://lucide.dev" target="_blank" rel="noopener">Lucide</a>
+    </p>
+  </footer>
 </template>
 
 <style scoped>
@@ -44,29 +43,46 @@ header {
   margin: 0 auto 2rem;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-background);
+  border-top: 1px solid var(--color-border);
+  padding: 0.5rem;
+  font-size: 0.75rem;
   text-align: center;
-  margin-top: 2rem;
 }
 
-nav a.router-link-exact-active {
+.bottom-nav nav {
+  margin-bottom: 0.25rem;
+}
+
+.bottom-nav nav a {
+  display: inline-block;
+  padding: 0 0.5rem;
+  border-left: 1px solid var(--color-border);
+  text-decoration: none;
+  color: var(--color-text-muted);
+}
+
+.bottom-nav nav a:first-of-type {
+  border: 0;
+}
+
+.bottom-nav nav a.router-link-exact-active {
   color: var(--color-text);
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.bottom-nav nav a:hover {
+  color: var(--color-text);
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
+.attribution {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
 }
 
 @media (min-width: 1024px) {
@@ -84,15 +100,6 @@ nav a:first-of-type {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
   }
 }
 </style>
