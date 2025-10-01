@@ -5,7 +5,7 @@ import MainGrid from './components/MainGrid.vue'
 </script>
 
 <template>
-  <header class="text-center border-b border-gray-200 pb-4">
+  <header class="text-center border-b border-gray-200 pb-4 pt-4">
     <MainTitle title="BATTLESHIPS!" />
   </header>
 
