@@ -10,7 +10,7 @@ import { Play, Ship, Info } from 'lucide-vue-next'
         <Play />
       </template>
       <template #heading>Actions</template>
-      <div style="min-height: 100px; background-color: var(--color-background-soft); border: 1px dashed var(--color-border); padding: 1rem; border-radius: 4px;">
+      <div class="min-h-[100px] bg-gray-50 border border-dashed border-gray-300 p-4 rounded">
         Action buttons will go here
       </div>
     </WelcomeItem>
@@ -20,7 +20,7 @@ import { Play, Ship, Info } from 'lucide-vue-next'
         <Ship />
       </template>
       <template #heading>Ships</template>
-      <div style="min-height: 100px; background-color: var(--color-background-soft); border: 1px dashed var(--color-border); padding: 1rem; border-radius: 4px;">
+      <div class="min-h-[100px] bg-gray-50 border border-dashed border-gray-300 p-4 rounded">
         Ship information will go here
       </div>
     </WelcomeItem>
@@ -30,7 +30,7 @@ import { Play, Ship, Info } from 'lucide-vue-next'
         <Info />
       </template>
       <template #heading>Info</template>
-      <div style="min-height: 100px; background-color: var(--color-background-soft); border: 1px dashed var(--color-border); padding: 1rem; border-radius: 4px;">
+      <div class="min-h-[100px] bg-gray-50 border border-dashed border-gray-300 p-4 rounded">
         Game information will go here
       </div>
     </WelcomeItem>

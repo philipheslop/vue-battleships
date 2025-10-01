@@ -1,9 +1,9 @@
 <template>
-  <div style="width: 100%">
+  <div class="w-full flex justify-center">
     <div class="content">
-      <table border="1" cellspacing="0">
+      <table class="border border-collapse">
         <tr v-for="(row, index) in tableData" :key="index + 'row'">
-          <td v-for="element in row" :key="element">
+          <td v-for="element in row" :key="element" class="p-0 m-0 border">
             <GridItem :msg="element" />
           </td>
         </tr>
@@ -26,15 +26,3 @@ for (let i = 0; i < rows; i++) {
 console.log(tableData)
 </script>
 
-<style scoped>
-th,
-td {
-  padding: 0px;
-  margin: 0px;
-  width: 25px;
-}
-
-table {
-  margin: 0px auto;
-}
-</style>

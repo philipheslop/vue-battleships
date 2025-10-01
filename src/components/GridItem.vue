@@ -1,5 +1,5 @@
 <template>
-  <div @click="clicked = !clicked" :class="{ sea: !clicked, red: clicked }" class="item">
+  <div @click="clicked = !clicked" :class="{ 'bg-blue-300': !clicked, 'bg-red-500': clicked }" class="size-8 text-center align-middle hover:bg-yellow-300 hover:text-lg cursor-pointer">
     {{ msg }}
   </div>
 </template>
@@ -12,29 +12,3 @@ defineProps({
 const clicked = ref(false)
 </script>
 
-<style scoped>
-.sea {
-  background-color: lightblue;
-}
-
-.red {
-  background-color: red;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-.item {
-  height: 25px;
-  width: 25px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.item:hover {
-  background-color: yellow;
-  font-size: 18px;
-}
-</style>
