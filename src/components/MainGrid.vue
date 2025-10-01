@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-center">
+  <div class="w-full flex flex-col items-center">
     <div class="content">
       <table class="border border-collapse">
         <tr v-for="(row, rowIndex) in tableData" :key="rowIndex + 'row'">
@@ -8,21 +8,45 @@
               :msg="element"
               :row="rowIndex"
               :col="colIndex"
-              :clicked="getCellState(rowIndex, colIndex)"
-              @cell-click="toggleCell"
+              :clicked="getCell(rowIndex, colIndex).clicked"
+              @cell-click="chooseCell"
             />
           </td>
         </tr>
       </table>
     </div>
+
+    <div class="mt-4 pt-6 flex gap-2 items-center">
+      <input
+        v-model="coordinateInput"
+        @input="restrictInput"
+        @keyup.enter="handleCoordinateSubmit"
+        placeholder="Enter coordinates (e.g. A6)"
+        :class="[
+          'px-3 py-2 border rounded text-sm uppercase transition-colors duration-200',
+          isInputError ? 'border-red-500' : 'border-gray-300'
+        ]"
+        maxlength="2"
+      />
+      <button
+        @click="handleCoordinateSubmit"
+        class="px-4 py-2 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+      >
+        Fire!
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import GridItem from './GridItem.vue'
-import { useGrid } from '../use/useGrid.js'
+import { useGrid } from '../use/useGrid'
+import { parseCoordinate } from '../utils/coordinates'
+import { useMessages } from '../use/useMessages'
 
-const { gridState, toggleCell, getCellState } = useGrid()
+const { gridState, chooseCell, getCell } = useGrid()
+const { addMessage } = useMessages()
 
 const rows = 10
 const cols = 10
@@ -31,6 +55,58 @@ for (let i = 0; i < rows; i++) {
   tableData[i] = []
   for (let j = 0; j < cols; j++) {
     tableData[i][j] = String.fromCharCode(65 + i) + j
+  }
+}
+
+const coordinateInput = ref('')
+const isInputError = ref(false)
+
+const flashError = () => {
+  isInputError.value = true
+  setTimeout(() => {
+    isInputError.value = false
+  }, 300)
+}
+
+const restrictInput = () => {
+  const originalValue = coordinateInput.value
+  const value = coordinateInput.value.toUpperCase()
+
+  // Only allow letter A-J followed by digit 0-9
+  const validPattern = /^[A-J]?[0-9]?$/
+
+  if (!validPattern.test(value)) {
+    // Flash red border for invalid input
+    flashError()
+
+    // Add message to terminal
+    addMessage('Invalid input, use coordinates like A6', 'red')
+
+    // Remove invalid characters
+    coordinateInput.value = value.replace(/[^A-J0-9]/g, '')
+
+    // Ensure letter comes before number
+    const letters = coordinateInput.value.match(/[A-J]/g)
+    const numbers = coordinateInput.value.match(/[0-9]/g)
+
+    if (letters && numbers) {
+      coordinateInput.value = letters[0] + numbers[0]
+    } else if (letters && letters.length > 1) {
+      coordinateInput.value = letters[0]
+    } else if (numbers && numbers.length > 1) {
+      coordinateInput.value = numbers[0]
+    }
+  }
+}
+
+const handleCoordinateSubmit = () => {
+  const coordinates = parseCoordinate(coordinateInput.value)
+
+  if (coordinates) {
+    chooseCell(coordinates.row, coordinates.col)
+    coordinateInput.value = ''
+  } else {
+    alert('Invalid coordinates! Please enter format like A6 (A-J, 0-9)')
   }
 }
 </script>
