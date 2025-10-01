@@ -45,7 +45,7 @@ import { useGrid } from '../use/useGrid'
 import { parseCoordinate } from '../utils/coordinates'
 import { useMessages } from '../use/useMessages'
 
-const { gridState, chooseCell, getCell } = useGrid()
+const { chooseCell, getCell } = useGrid()
 const { addMessage } = useMessages()
 
 const rows = 10
@@ -69,7 +69,6 @@ const flashError = () => {
 }
 
 const restrictInput = () => {
-  const originalValue = coordinateInput.value
   const value = coordinateInput.value.toUpperCase()
 
   // Only allow letter A-J followed by digit 0-9
