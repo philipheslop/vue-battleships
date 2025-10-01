@@ -14,11 +14,13 @@ import { Ship } from 'lucide-vue-next'
     />
     <div class="wrapper">
       <MainTitle title="BATTLESHIPS!" />
-      <MainGrid />
     </div>
   </header>
 
-  <RouterView />
+  <div class="main-content">
+    <MainGrid />
+    <RouterView />
+  </div>
 
   <footer class="bottom-nav">
     <nav>
@@ -36,11 +38,17 @@ import { Ship } from 'lucide-vue-next'
 header {
   line-height: 1.5;
   max-height: 100vh;
+  text-align: center;
 }
 
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+
+.main-content {
+  display: flex;
+  padding-top: 2rem;
 }
 
 .bottom-nav {
