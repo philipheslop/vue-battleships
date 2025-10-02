@@ -1,7 +1,7 @@
 export interface GameMessage {
   text: string
   displayedText: string
-  color: string
+  color: MessageColor
   id: number
   timestamp: Date
   isTyping: boolean
