@@ -12,7 +12,8 @@ import { User, Recycle, Bot } from 'lucide-vue-next'
       <template #heading>Introduction</template>
       <p class="mb-2 font-semibold">Phil Heslop presents:</p>
       Technical test for a Battleships Vue 3 project using TypeScript (and TailwindCSS).
-      It is initially based on the Vue project setup app and built from there
+      It is initially based on the Vue project setup app and built from there.
+      It was completed over a weekend, about 6 hours in total.
     </PanelItem>
 
     <PanelItem>
@@ -41,6 +42,8 @@ import { User, Recycle, Bot } from 'lucide-vue-next'
         <li>Finding documentation</li>
         <li>General Vue syntax reminders</li>
         <li>Bug Chasing (build errors etc.)</li>
+        <li>Piana - never used before and needed a few pointers (when to use .value!)</li>
+        <li>Reactivity - related to above but state consistency between components was tricky</li>
         </ul>
     </PanelItem>
   </main>

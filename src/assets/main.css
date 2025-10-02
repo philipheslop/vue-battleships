@@ -22,6 +22,15 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-
+.panel-container {
+  @apply border-gray-200;
 }
+
+.panel-container-sidebar {
+  @apply border-b lg:border-b-0 lg:border-r lg:pr-8 pb-8 lg:pb-0;
+}
+
+.panel-container-main {
+  @apply col-span-2 px-4 lg:px-8;
+}
+
