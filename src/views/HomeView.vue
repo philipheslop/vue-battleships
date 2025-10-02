@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { onMounted, computed, nextTick, watch } from 'vue'
+import { onMounted, computed } from 'vue'
 import PanelItem from '../components/PanelItem.vue'
 import VictoryModal from '../components/VictoryModal.vue'
 import { Play, Ship, Info, GamepadIcon } from 'lucide-vue-next'
 import { useMessages } from '../use/useMessages'
 import { useGridStore } from '../stores/grid'
-import { useShips } from '../use/useShips'
 import type { GridCell } from '../types/grid'
 import type { Battleship } from '../types/ship'
-import { SHIP_TYPES } from '../types/ship'
 
 const { messages, addMessage } = useMessages()
 const store = useGridStore()
-const { resetGrid, gridState, fleet: storeFleet, initializeGame, placeShips } = store
-const ships = useShips()
+const { resetGrid, initializeGame, placeShips } = store
 
 const finalScore = computed(() => {
   const totalShipLength = fleet.value.reduce((total, ship) => total + ship.length, 0)

@@ -1,15 +1,13 @@
 import type { GridState } from '../types/grid'
-import type { Battleship, ShipPosition, ShipOrientation } from '../types/ship'
+import type { Battleship, ShipOrientation } from '../types/ship'
 import { SHIP_TYPES } from '../types/ship'
 
 // Store adjacent cells as 1D indices (row * 10 + col)
-export let adjacentCells: Set<number> = new Set()
+export const adjacentCells: Set<number> = new Set()
 
 // Convert 2D coordinates to 1D index
 const to1D = (row: number, col: number): number => row * 10 + col
 
-// Convert 1D index to 2D coordinates
-const to2D = (index: number): [number, number] => [Math.floor(index / 10), index % 10]
 
 export function canPlaceShip(
   grid: GridState,
@@ -108,7 +106,7 @@ function createShip(id: number, length: number): Battleship {
   return {
     id,
     length,
-    hits: new Array(length).fill(false),
+    hits: Array.from({ length }, () => false),
     hitCount: 0
   }
 }
