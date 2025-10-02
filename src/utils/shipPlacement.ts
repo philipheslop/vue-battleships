@@ -1,9 +1,8 @@
 import type { GridState } from '../types/grid'
 import type { Battleship, ShipOrientation } from '../types/ship'
 import { SHIP_TYPES } from '../types/ship'
+import { useGridStore } from '../stores/grid'
 
-// Store adjacent cells as 1D indices (row * 10 + col)
-export const adjacentCells: Set<number> = new Set()
 
 // Convert 2D coordinates to 1D index
 const to1D = (row: number, col: number): number => row * 10 + col
@@ -16,6 +15,7 @@ export function canPlaceShip(
   length: number,
   orientation: ShipOrientation
 ): boolean {
+  const gridStore = useGridStore()
   const gridSize = 10
 
   // Check if ship fits within grid boundaries
@@ -40,7 +40,7 @@ export function canPlaceShip(
   // Check entire expanded area using accumulated adjacent cells
   for (let row = minRow; row <= maxRow; row++) {
     for (let col = minCol; col <= maxCol; col++) {
-      if (adjacentCells.has(to1D(row, col))) {
+      if (gridStore.adjacentCells.has(to1D(row, col))) {
         return false
       }
     }
@@ -67,6 +67,7 @@ export function placeShip(
   }
 
   // Add adjacent buffer zone cells to occupied set
+  const gridStore = useGridStore()
   const minRow = Math.max(0, startRow - 1)
   const maxRow = orientation === 'horizontal'
     ? Math.min(gridSize - 1, startRow + 1)
@@ -82,7 +83,7 @@ export function placeShip(
     for (let col = minCol; col <= maxCol; col++) {
       // Only add adjacent cells, not the ship cells themselves
       if (grid[row][col].shipId === 0) {
-        adjacentCells.add(to1D(row, col))
+        gridStore.adjacentCells.add(to1D(row, col))
       }
     }
   }
@@ -132,11 +133,12 @@ function placeShipType(
 }
 
 export function placeShipsRandomly(grid: GridState): Battleship[] {
+  const gridStore = useGridStore()
   const ships: Battleship[] = []
   let shipId = 1
 
   // Clear adjacent cells for new placement session
-  adjacentCells.clear()
+  gridStore.adjacentCells.clear()
 
   // Place all ship types
   shipId = placeShipType(grid, ships, 'BATTLESHIP', shipId)

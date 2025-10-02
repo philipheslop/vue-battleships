@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { GridState, GridCell } from '../types/grid'
 import type { Battleship } from '../types/ship'
-import { placeShipsRandomly, adjacentCells } from '../utils/shipPlacement'
+import { placeShipsRandomly } from '../utils/shipPlacement'
 import { useMessages } from '../use/useMessages'
 
 // Import the adjacent cells checking function
@@ -29,6 +29,9 @@ export const useGridStore = defineStore('grid', () => {
 
   // Track firing state
   const firingCell = ref<{ row: number; col: number } | null>(null)
+
+  // Adjacent cells for ship placement (prevents ships from touching)
+  const adjacentCells = ref<Set<number>>(new Set())
 
   // Handle cell click
   const chooseCell = (row: number, col: number) => {
@@ -59,7 +62,7 @@ export const useGridStore = defineStore('grid', () => {
           }
         } else {
           // Check if clicked cell is adjacent to a ship
-          if (adjacentCells.has(to1D(row, col))) {
+          if (adjacentCells.value.has(to1D(row, col))) {
             addMessage('Close!', 'yellow')
           } else {
             addMessage('Miss.', 'blue')
@@ -100,6 +103,7 @@ export const useGridStore = defineStore('grid', () => {
     gridState,
     fleet,
     firingCell,
+    adjacentCells,
     chooseCell,
     getCell,
     resetGrid,
