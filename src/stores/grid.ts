@@ -13,15 +13,16 @@ export const useGridStore = defineStore('grid', () => {
   const { addMessage } = useMessages()
 
   // Create a single cell with proper typing
-  const createCell = (): GridCell => ({
+  const createCell = (i: number, j: number): GridCell => ({
     clicked: false,
-    shipId: 0
+    shipId: 0,
+    label: `${String.fromCharCode(65 + i)}${j}`
   })
 
   // Grid state - GRID_SIZE x GRID_SIZE matrix where each cell has properties
   const gridState = ref<GridState>(
-    Array(GRID_SIZE).fill(null).map(() =>
-      Array(GRID_SIZE).fill(null).map(() => createCell())
+    Array(GRID_SIZE).fill(null).map((_, i) =>
+      Array(GRID_SIZE).fill(null).map((_, j) => createCell(i, j))
     )
   )
 
@@ -82,8 +83,8 @@ export const useGridStore = defineStore('grid', () => {
 
   // Reset grid only (clear all data)
   const resetGrid = () => {
-    gridState.value = Array(10).fill(null).map(() =>
-      Array(10).fill(null).map(() => createCell())
+    gridState.value = Array(10).fill(null).map((_, i) =>
+      Array(10).fill(null).map((_, j) => createCell(i, j))
     )
     fleet.value = []
   }

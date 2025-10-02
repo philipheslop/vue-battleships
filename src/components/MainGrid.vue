@@ -2,15 +2,15 @@
   <div class="w-full flex flex-col items-center">
     <div class="content">
       <table class="border border-collapse">
-        <tr v-for="(row, rowIndex) in tableData" :key="rowIndex + 'row'">
-          <td v-for="(element, colIndex) in row" :key="element" class="p-0 m-0 border">
+        <tr v-for="(row, rowIndex) in store.gridState" :key="rowIndex + 'row'">
+          <td v-for="(cell, colIndex) in row" :key="cell.label" class="p-0 m-0 border">
             <GridItem
-              :msg="element"
+              :msg="cell.label"
               :row="rowIndex"
               :col="colIndex"
-              :clicked="getCell(rowIndex, colIndex).clicked"
+              :clicked="cell.clicked"
               :show-ships="showShips"
-              :has-ship="getCell(rowIndex, colIndex).shipId > 0"
+              :has-ship="cell.shipId > 0"
               :is-firing="store.firingCell?.row === rowIndex && store.firingCell?.col === colIndex"
               @cell-click="chooseCell"
             />
@@ -50,18 +50,8 @@ import { parseCoordinate } from '../utils/coordinates'
 import { useMessages } from '../use/useMessages'
 
 const store = useGridStore()
-const { chooseCell, getCell } = store
+const { chooseCell } = store
 const { addMessage } = useMessages()
-
-const rows = 10
-const cols = 10
-const tableData: string[][] = []
-for (let i = 0; i < rows; i++) {
-  tableData[i] = []
-  for (let j = 0; j < cols; j++) {
-    tableData[i][j] = String.fromCharCode(65 + i) + j
-  }
-}
 
 const coordinateInput = ref('')
 const isInputError = ref(false)
@@ -113,7 +103,7 @@ const handleCoordinateSubmit = () => {
 
   if (coordinates) {
     // Check if cell was already clicked
-    const cell = getCell(coordinates.row, coordinates.col)
+    const cell = store.gridState[coordinates.row][coordinates.col]
     if (cell.clicked) {
       flashError()
       addMessage('Already Fired Here', 'red')
