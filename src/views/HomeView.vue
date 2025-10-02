@@ -13,14 +13,13 @@ const { messages, addMessage } = useMessages()
 const store = useGridStore()
 const shipsStore = useShipsStore()
 const { resetGrid, initializeGame, placeShips } = store
-const { finalScore, shotsFired, allShipsDestroyed } = shipsStore
 
 const hits = computed(() => {
   return store.gridState.flat().filter((cell: GridCell) => cell.clicked && cell.shipId > 0).length
 })
 
 const misses = computed(() => {
-  return shotsFired - hits.value
+  return shipsStore.shotsFired - hits.value
 })
 
 // Access fleet through store reference
@@ -87,7 +86,7 @@ onMounted(() => {
           <div class="flex justify-between items-center text-sm">
             <div class="flex items-center gap-1">
               <span class="text-gray-600">Shots Fired:</span>
-              <span class="font-semibold text-blue-600">{{ shotsFired }}</span>
+              <span class="font-semibold text-blue-600">{{ shipsStore.shotsFired }}</span>
             </div>
             <div class="flex items-center gap-1">
               <span class="text-gray-600">Hits:</span>
@@ -166,8 +165,8 @@ onMounted(() => {
     </PanelItem>
 
     <VictoryModal
-      :show="allShipsDestroyed"
-      :score="finalScore"
+      :show="shipsStore.allShipsDestroyed"
+      :score="shipsStore.finalScore"
       @play-again="handleNewGame"
     />
   </main>
