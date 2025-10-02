@@ -12,6 +12,7 @@
   </div>
 </template>
 
+/*Unable to recreate in tailwind so using scoped css here*/
 <style scoped>
 .item:before {
   content: ' ';

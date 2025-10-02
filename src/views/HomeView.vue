@@ -5,32 +5,22 @@ import VictoryModal from '../components/VictoryModal.vue'
 import { Play, Ship, Info, GamepadIcon } from 'lucide-vue-next'
 import { useMessages } from '../use/useMessages'
 import { useGridStore } from '../stores/grid'
+import { useShipsStore } from '../stores/ships'
 import type { GridCell } from '../types/grid'
 import type { Battleship } from '../types/ship'
 
 const { messages, addMessage } = useMessages()
 const store = useGridStore()
+const shipsStore = useShipsStore()
 const { resetGrid, initializeGame, placeShips } = store
-
-const finalScore = computed(() => {
-  const totalShipLength = fleet.value.reduce((total, ship) => total + ship.length, 0)
-  return 100 + totalShipLength - shotsFired.value
-})
-
-const shotsFired = computed(() => {
-  return store.gridState.flat().filter((cell: GridCell) => cell.clicked).length
-})
+const { finalScore, shotsFired, allShipsDestroyed } = shipsStore
 
 const hits = computed(() => {
   return store.gridState.flat().filter((cell: GridCell) => cell.clicked && cell.shipId > 0).length
 })
 
 const misses = computed(() => {
-  return shotsFired.value - hits.value
-})
-
-const allShipsDestroyed = computed(() => {
-  return fleet.value.length > 0 && fleet.value.every(ship => (ship.hitCount || 0) === ship.length)
+  return shotsFired - hits.value
 })
 
 // Access fleet through store reference
