@@ -9,6 +9,9 @@
               :row="rowIndex"
               :col="colIndex"
               :clicked="getCell(rowIndex, colIndex).clicked"
+              :show-ships="showShips"
+              :has-ship="getCell(rowIndex, colIndex).shipId > 0"
+              :is-firing="store.firingCell?.row === rowIndex && store.firingCell?.col === colIndex"
               @cell-click="chooseCell"
             />
           </td>
@@ -39,13 +42,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import GridItem from './GridItem.vue'
-import { useGrid } from '../use/useGrid'
+import { useGridStore } from '../stores/grid'
 import { parseCoordinate } from '../utils/coordinates'
 import { useMessages } from '../use/useMessages'
 
-const { chooseCell, getCell } = useGrid()
+const store = useGridStore()
+const { chooseCell, getCell } = store
 const { addMessage } = useMessages()
 
 const rows = 10
@@ -60,6 +64,7 @@ for (let i = 0; i < rows; i++) {
 
 const coordinateInput = ref('')
 const isInputError = ref(false)
+const showShips = ref(false)
 
 const flashError = () => {
   isInputError.value = true
@@ -102,11 +107,42 @@ const handleCoordinateSubmit = () => {
   const coordinates = parseCoordinate(coordinateInput.value)
 
   if (coordinates) {
-    chooseCell(coordinates.row, coordinates.col)
+    // Check if cell was already clicked
+    const cell = getCell(coordinates.row, coordinates.col)
+    if (cell.clicked) {
+      flashError()
+      addMessage('Already Fired Here', 'red')
+    } else {
+      chooseCell(coordinates.row, coordinates.col)
+    }
     coordinateInput.value = ''
   } else {
     alert('Invalid coordinates! Please enter format like A6 (A-J, 0-9)')
   }
 }
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.code === 'Space' && !event.repeat) {
+    event.preventDefault()
+    showShips.value = true
+  }
+}
+
+const handleKeyUp = (event: KeyboardEvent) => {
+  if (event.code === 'Space') {
+    event.preventDefault()
+    showShips.value = false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown)
+  window.addEventListener('keyup', handleKeyUp)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+  window.removeEventListener('keyup', handleKeyUp)
+})
 </script>
 
