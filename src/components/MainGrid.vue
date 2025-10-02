@@ -27,7 +27,8 @@
         placeholder="Enter coordinates (e.g. A6)"
         :class="[
           'px-3 py-2 border rounded text-sm uppercase transition-colors duration-200',
-          isInputError ? 'border-red-500' : 'border-gray-300'
+          isInputError ? 'border-red-500' :
+          isInputValid ? 'border-green-500' : 'border-gray-300'
         ]"
         maxlength="2"
       />
@@ -42,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import GridItem from './GridItem.vue'
 import { useGridStore } from '../stores/grid'
 import { parseCoordinate } from '../utils/coordinates'
@@ -65,6 +66,10 @@ for (let i = 0; i < rows; i++) {
 const coordinateInput = ref('')
 const isInputError = ref(false)
 const showShips = ref(false)
+
+const isInputValid = computed(() => {
+  return coordinateInput.value.length === 2 && /^[A-J][0-9]$/.test(coordinateInput.value)
+})
 
 const flashError = () => {
   isInputError.value = true
@@ -117,7 +122,8 @@ const handleCoordinateSubmit = () => {
     }
     coordinateInput.value = ''
   } else {
-    alert('Invalid coordinates! Please enter format like A6 (A-J, 0-9)')
+    addMessage('Invalid coordinates! Please enter format like A6 (A-J, 0-9)', 'red')
+    flashError()
   }
 }
 
