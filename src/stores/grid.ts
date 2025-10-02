@@ -1,12 +1,13 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { GridState, GridCell } from '../types/grid'
+import { GRID_SIZE } from '../types/grid'
 import type { Battleship } from '../types/ship'
 import { placeShipsRandomly } from '../utils/shipPlacement'
 import { useMessages } from '../use/useMessages'
 
 // Import the adjacent cells checking function
-const to1D = (row: number, col: number): number => row * 10 + col
+const to1D = (row: number, col: number): number => row * GRID_SIZE + col
 
 export const useGridStore = defineStore('grid', () => {
   const { addMessage } = useMessages()
@@ -17,10 +18,10 @@ export const useGridStore = defineStore('grid', () => {
     shipId: 0
   })
 
-  // Grid state - 10x10 matrix where each cell has properties
+  // Grid state - GRID_SIZE x GRID_SIZE matrix where each cell has properties
   const gridState = ref<GridState>(
-    Array(10).fill(null).map(() =>
-      Array(10).fill(null).map(() => createCell())
+    Array(GRID_SIZE).fill(null).map(() =>
+      Array(GRID_SIZE).fill(null).map(() => createCell())
     )
   )
 
