@@ -1,11 +1,12 @@
 import type { GridState } from '../types/grid'
+import { GRID_SIZE } from '../types/grid'
 import type { Battleship, ShipOrientation } from '../types/ship'
 import { SHIP_TYPES } from '../types/ship'
 import { useGridStore } from '../stores/grid'
 
 
 // Convert 2D coordinates to 1D index
-const to1D = (row: number, col: number): number => row * 10 + col
+const to1D = (row: number, col: number): number => row * GRID_SIZE + col
 
 
 export function canPlaceShip(
@@ -16,7 +17,7 @@ export function canPlaceShip(
   orientation: ShipOrientation
 ): boolean {
   const gridStore = useGridStore()
-  const gridSize = 10
+  const gridSize = GRID_SIZE
 
   // Check if ship fits within grid boundaries
   if (orientation === 'horizontal') {
@@ -56,7 +57,7 @@ export function placeShip(
   startCol: number,
   orientation: ShipOrientation
 ): void {
-  const gridSize = 10
+  const gridSize = GRID_SIZE
 
   // Place ship cells on grid
   for (let i = 0; i < ship.length; i++) {
@@ -96,7 +97,7 @@ export function getRandomOrientation(): ShipOrientation {
   return Math.random() < 0.5 ? 'horizontal' : 'vertical'
 }
 
-export function getRandomPosition(gridSize: number = 10): { row: number; col: number } {
+export function getRandomPosition(gridSize: number = GRID_SIZE): { row: number; col: number } {
   return {
     row: Math.floor(Math.random() * gridSize),
     col: Math.floor(Math.random() * gridSize)

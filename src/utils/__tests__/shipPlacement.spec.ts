@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
 import { canPlaceShip, placeShip, placeShipsRandomly } from '../shipPlacement'
 import type { GridState, GridCell } from '../../types/grid'
 import type { Battleship } from '../../types/ship'
@@ -7,6 +8,7 @@ describe('Ship Placement', () => {
   let grid: GridState
 
   beforeEach(() => {
+    setActivePinia(createPinia())
     grid = Array(10).fill(null).map(() =>
       Array(10).fill(null).map((): GridCell => ({ clicked: false, shipId: 0 }))
     )
