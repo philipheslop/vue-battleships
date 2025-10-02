@@ -33,9 +33,9 @@ describe('Ships Store', () => {
 
     // Setup test data
     gridStore.fleet = [{ id: 1, length: 4, hits: [], hitCount: 0 }]
-    gridStore.gridState = Array(10).fill(null).map(() =>
-      Array(10).fill(null).map(() => ({ clicked: false, shipId: 0 }))
-    )
+    gridStore.gridState = Array(10).fill(null).map((_,i) =>
+      Array(10).fill(null).map((_,j) => ({ clicked: false, shipId: 0, label: `${String.fromCharCode(65 + i)}${j}` })))
+
 
     // Score should be 100 + ship length - shots fired
     expect(shipsStore.finalScore).toBe(104) // 100 + 4 - 0

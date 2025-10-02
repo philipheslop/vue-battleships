@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { canPlaceShip, placeShip, placeShipsRandomly } from '../shipPlacement'
-import type { GridState, GridCell } from '../../types/grid'
+import type { GridState } from '../../types/grid'
 import type { Battleship } from '../../types/ship'
 
 describe('Ship Placement', () => {
@@ -9,9 +9,8 @@ describe('Ship Placement', () => {
 
   beforeEach(() => {
     setActivePinia(createPinia())
-    grid = Array(10).fill(null).map(() =>
-      Array(10).fill(null).map((): GridCell => ({ clicked: false, shipId: 0 }))
-    )
+    grid = Array(10).fill(null).map((_,i) =>
+      Array(10).fill(null).map((_,j) => ({ clicked: false, shipId: 0, label: `${String.fromCharCode(65 + i)}${j}` })))
   })
 
   it('should allow valid placement', () => {
