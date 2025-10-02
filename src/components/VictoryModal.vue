@@ -15,12 +15,28 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { onMounted, onUnmounted } from 'vue'
+
+const props = defineProps<{
   show: boolean
   score: number
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   'play-again': []
 }>()
+
+const handleEscape = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && props.show) {
+    emit('play-again')
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleEscape)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleEscape)
+})
 </script>
