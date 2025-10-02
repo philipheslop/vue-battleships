@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import PanelItem from '../components/PanelItem.vue'
-import DocumentationIcon from '../components/icons/IconDocumentation.vue'
-import ToolingIcon from '../components/icons/IconTooling.vue'
-import EcosystemIcon from '../components/icons/IconEcosystem.vue'
-import CommunityIcon from '../components/icons/IconCommunity.vue'
-import SupportIcon from '../components/icons/IconSupport.vue'
+import { FileText, Wrench, Globe, Users, HelpCircle } from 'lucide-vue-next'
 
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </script>
@@ -13,7 +9,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
   <main>
     <PanelItem>
       <template #icon>
-        <DocumentationIcon />
+        <FileText />
       </template>
       <template #heading>Documentation</template>
 
@@ -24,7 +20,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 
     <PanelItem>
       <template #icon>
-        <ToolingIcon />
+        <Wrench />
       </template>
       <template #heading>Tooling</template>
 
@@ -50,7 +46,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 
     <PanelItem>
       <template #icon>
-        <EcosystemIcon />
+        <Globe />
       </template>
       <template #heading>Ecosystem</template>
 
@@ -66,7 +62,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 
     <PanelItem>
       <template #icon>
-        <CommunityIcon />
+        <Users />
       </template>
       <template #heading>Community</template>
 
@@ -84,7 +80,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 
     <PanelItem>
       <template #icon>
-        <SupportIcon />
+        <HelpCircle />
       </template>
       <template #heading>Support Vue</template>
 
