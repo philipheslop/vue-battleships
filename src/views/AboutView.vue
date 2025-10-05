@@ -42,7 +42,7 @@ import { User, Recycle, Bot } from 'lucide-vue-next'
         <li>Finding documentation</li>
         <li>General Vue syntax reminders</li>
         <li>Bug Chasing (build errors etc.)</li>
-        <li>Piana - never used before and needed a few pointers (when to use .value!)</li>
+        <li>Pinia - never used before and needed a few pointers (when to use .value!)</li>
         <li>Reactivity - related to above but state consistency between components was tricky</li>
         </ul>
     </PanelItem>
