@@ -1,3 +1,5 @@
+import { GRID_SIZE } from "@/types/grid"
+
 export interface Coordinate {
   row: number
   col: number
@@ -14,7 +16,7 @@ export function parseCoordinate(input: string): Coordinate | null {
   const col = parseInt(number)
 
   // Validate bounds
-  if (row < 0 || row >= 10 || col < 0 || col >= 10 || isNaN(col)) {
+  if (row < 0 || row >= GRID_SIZE || col < 0 || col >= GRID_SIZE || isNaN(col)) {
     return null
   }
 

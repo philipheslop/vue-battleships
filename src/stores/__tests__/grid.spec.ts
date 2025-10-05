@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useGridStore } from '../grid'
+import { GRID_SIZE } from '@/types/grid'
 
 // Mock useMessages
 vi.mock('../../use/useMessages', () => ({
@@ -17,8 +18,8 @@ describe('Grid Store', () => {
   it('should initialize with empty grid', () => {
     const store = useGridStore()
 
-    expect(store.gridState).toHaveLength(10)
-    expect(store.gridState[0]).toHaveLength(10)
+    expect(store.gridState).toHaveLength(GRID_SIZE)
+    expect(store.gridState[0]).toHaveLength(GRID_SIZE)
     expect(store.getCell(0, 0).clicked).toBe(false)
   })
 

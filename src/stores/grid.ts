@@ -83,8 +83,8 @@ export const useGridStore = defineStore('grid', () => {
 
   // Reset grid only (clear all data)
   const resetGrid = () => {
-    gridState.value = Array(10).fill(null).map((_, i) =>
-      Array(10).fill(null).map((_, j) => createCell(i, j))
+    gridState.value = Array(GRID_SIZE).fill(null).map((_, i) =>
+      Array(GRID_SIZE).fill(null).map((_, j) => createCell(i, j))
     )
     fleet.value = []
   }
