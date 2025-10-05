@@ -26,24 +26,12 @@ export function canPlaceShip(
     if (startRow + length > gridSize) return false
   }
 
-  // Create expanded area to check (ship cells + adjacent cells)
-  const minRow = Math.max(0, startRow - 1)
-  const maxRow = orientation === 'horizontal'
-    ? Math.min(gridSize - 1, startRow + 1)
-    : Math.min(gridSize - 1, startRow + length)
-  const minCol = orientation === 'horizontal'
-    ? Math.max(0, startCol - 1)
-    : Math.max(0, startCol - 1)
-  const maxCol = orientation === 'horizontal'
-    ? Math.min(gridSize - 1, startCol + length)
-    : Math.min(gridSize - 1, startCol + 1)
-
-  // Check entire expanded area using accumulated adjacent cells
-  for (let row = minRow; row <= maxRow; row++) {
-    for (let col = minCol; col <= maxCol; col++) {
-      if (gridStore.adjacentCells.has(to1D(row, col))) {
-        return false
-      }
+  // Only check the actual ship cells for adjacency/occupation
+  for (let i = 0; i < length; i++) {
+    const row = orientation === 'horizontal' ? startRow : startRow + i
+    const col = orientation === 'horizontal' ? startCol + i : startCol
+    if (gridStore.adjacentCells.has(to1D(row, col)) || grid[row][col].shipId !== 0) {
+      return false
     }
   }
 
