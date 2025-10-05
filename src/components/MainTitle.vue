@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="greetings flex items-center justify-center">
+  <div class="flex items-center justify-center">
     <Ship
       class="mr-4"
       :size="60"
